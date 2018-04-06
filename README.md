@@ -24,15 +24,26 @@ paths:
         Validación de usuario.
       produces:
       - application/json
+      parameters:
+      - name: usuario
+        in: query
+        description: El nombre del usuario.
+        required: true
+        type: string
+      - name: password
+        in: query
+        description: La contraseña en texto plano.
+        required: true
+        type: integer
       responses:
         200:
           description: Ir a productos.
           schema:
             type: boolean
             items:
-              $ref: '../catalogo/productos/'
+              $ref: '../catalogo/productos/' -----------------------------------------------------------
         400:
-          description: Error en en la respuesta.
+          description: Usuario o contraseña incorrecto.
 
   /catalogo/productos:
     get:
@@ -53,6 +64,7 @@ paths:
               $ref: '#/'
         400:
           description: Error en en la respuesta.
+
     post:
       tags:
       - Crear Productos
@@ -63,12 +75,39 @@ paths:
       - application/json
       produces:
       - application/json
+
       parameters:
-      - in: body
-        name: nombre,descripcion,foto,precio
-        description: parametros de nuevo producto. 
+      - name: nombre
+        in: query
+        description: El nombre del producto.
+        required: true
+        type: string
+
+      - name: descripcion
+        in: query
+        description: La descripcion del producto.
+        required: true
+        type: string
+
+        - name: foto
+        in: query
+        description: La imagen del producto.
+        required: true
+        type: image/png ------------------------------------------------------------------------
+
+      - name: precio
+        in: query
+        description: El valor del producto.
+        required: true
+        type: double 
+        
+      - name: tipoProducto
+        in: query
+        description: El tipo de producto.
+        required: true
+        type: string
         schema:
-          $ref: '#/'
+          $ref: '#/' ------------------------------------------------------------------------------
       responses:
         201:
           description: producto Creado.
@@ -76,25 +115,7 @@ paths:
           description: ingreso Invalido, Objeto invalido.
         409:
           description: el Producto ya existe.
-  /catalogo/productos/:id:        
-    get:
-      tags:
-      - Buscar producto
-      summary: mostrar catalogo completo.
-      operationId: id
-      description: | 
-        id del producto.
-      produces:
-      - application/json
-      responses:
-        200:
-          description: Obtener el producto.
-          schema:
-            type: array
-            items:
-              $ref: '#/'
-        400:
-          description: Error en en la respuesta.
+
     put:
       tags:
       - Modificar Producto
@@ -109,6 +130,7 @@ paths:
           description: producto Modificado.
         400:
           description: Modificación invalida, Objeto invalido.
+
     delete:
       tags:
       - Borrar Producto
@@ -123,3 +145,55 @@ paths:
           description: producto eliminado.
         400:
           description: Eliminación invalida, Objeto invalido.     
+
+  /catalogo/productos/:nombre:        
+    get:
+      tags:
+      - Buscar producto por nombre
+      summary: mostrar catalogo completo.
+      operationId: setNombre --------------------------------------------------------------
+      description: | 
+        id del producto.
+      produces:
+      - application/json
+            parameters:
+      - name: nombre
+        in: query
+        description: El nombre del producto.
+        required: true
+        type: string
+      responses:
+        200:
+          description: Obtener el producto.
+          schema:
+            type: array
+            items:
+              $ref: '#/'
+        400:
+          description: Error en en la respuesta.
+
+  /catalogo/productos/:tipoproducto:        
+    get:
+      tags:
+      - Buscar producto por tipo
+      summary: mostrar productos por tipo.
+      operationId: setNombre --------------------------------------------------------------
+      description: | 
+        id del producto.
+      produces:
+      - application/json
+            parameters:
+      - name: tipoproducto
+        in: query
+        description: el tipo de producto.
+        required: true
+        type: string
+      responses:
+        200:
+          description: Obtener los productos por tipo.
+          schema:
+            type: array
+            items:
+              $ref: '#/'
+        400:
+          description: Error en en la respuesta.
