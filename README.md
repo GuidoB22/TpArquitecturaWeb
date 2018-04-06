@@ -1,7 +1,7 @@
 **Trabajo practico Arquitectura Web**
 
 * Nombre de grupo:PalermoSoft
-* Integrantes: Guido Besozzi
+* Integrantes: Guido Besozzi, Lopolito Gonzalo.
 * Descripción: Vamos a modelar un sistema de venta de prendas por catalogo
 
 Alcance: Se van a poder de cargar en el back-end prendas en un catálogo con nombre, imagen, descripción y precio.
@@ -14,6 +14,26 @@ info:
   title: 'Catalogo Para Ventas'
   description: 'Aplicación para generar catálogos WEB para venta de indumentaria.'
 paths: 
+ /catalogo/ingreso/:usuario,pass:
+    get:
+      tags:
+      - Ingreso
+      summary: Ingreso de usuario y contraseña.
+      operationId: usuario,pass
+      description: |
+        Validación de usuario.
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Ir a productos.
+          schema:
+            type: boolean
+            items:
+              $ref: '../catalogo/productos/'
+        400:
+          description: Error en en la respuesta.
+
   /catalogo/productos:
     get:
       tags:
