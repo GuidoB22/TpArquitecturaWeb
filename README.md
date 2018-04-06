@@ -8,14 +8,18 @@ Alcance: Se van a poder de cargar en el back-end prendas en un catálogo con nom
 A estas predas vamos a poder agregar, modificar y quitar del Catálogo.
 
 
+-Ver como se ingresa el body en swagger para el POST de ingreso de usuario
+-Terminar de sacar catalogo del sistema 
+
+
 swagger: '2.0'
 info:
   version: '0.1'
   title: 'Catalogo Para Ventas'
   description: 'Aplicación para generar catálogos WEB para venta de indumentaria.'
 paths: 
- /catalogo/ingreso/:usuario,pass:
-    get:
+ /ingreso:-----------------------------------
+    post:
       tags:
       - Ingreso
       summary: Ingreso de usuario y contraseña.
@@ -40,12 +44,10 @@ paths:
           description: Ir a productos.
           schema:
             type: boolean
-            items:
-              $ref: '../catalogo/productos/' -----------------------------------------------------------
         400:
           description: Usuario o contraseña incorrecto.
 
-  /catalogo/productos:
+  /productos:
     get:
       tags:
       - Productos
@@ -100,14 +102,12 @@ paths:
         description: El valor del producto.
         required: true
         type: double 
-        
+
       - name: tipoProducto
         in: query
         description: El tipo de producto.
         required: true
         type: string
-        schema:
-          $ref: '#/' ------------------------------------------------------------------------------
       responses:
         201:
           description: producto Creado.
@@ -146,11 +146,11 @@ paths:
         400:
           description: Eliminación invalida, Objeto invalido.     
 
-  /catalogo/productos/:nombre:        
+  /productos/:nombre:        
     get:
       tags:
       - Buscar producto por nombre
-      summary: mostrar catalogo completo.
+      summary: mostrar el producto del "nombre".
       operationId: setNombre --------------------------------------------------------------
       description: | 
         id del producto.
@@ -172,7 +172,7 @@ paths:
         400:
           description: Error en en la respuesta.
 
-  /catalogo/productos/:tipoproducto:        
+  /productos/:tipoproducto:        
     get:
       tags:
       - Buscar producto por tipo
