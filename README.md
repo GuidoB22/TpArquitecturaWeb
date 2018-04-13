@@ -49,7 +49,7 @@ paths: {
           
           
           
-  /Ingreso/abm:
+  /Ingreso/abm/crear: 
     post:
         tags:
         - Crear Productos
@@ -89,38 +89,137 @@ paths: {
           409:
             description: el Producto ya existe.
 # cambiar por get para traer productos y luego la sintaxis que se valla a hacer modificar =PUT(update)  eliminar =delete
-      put:
-        tags:
-        - Modificar Producto
-        summary: mostrar catalogo completo.
-        operationId: idmod
-        description: | 
-          id del producto a modificar.
-        produces:
-        - application/json
-        responses:
-          201:
-            description: producto Modificado.
-          400:
-            description: Modificación invalida, Objeto invalido.
+/Ingreso/abm/listar:
+      get:
+        summary: Solicitud de productos a modificar
+    
+    responses:
+      '200': Ok. 
+      description: Se envia el listado completo de productos
+      requestBodies:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                nombre:          
+                  type: string
+                descripcion:    
+                  type: string
+                foto:
+                  content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                precio:
+                  type: double
+                tipoProducto: 
+                  type: string #es string o object debido a que es otra entidad?
+/Ingreso/abm/modificar/modpornombre:
 
-      delete:
+      get:
         tags:
-        - Borrar Producto
-        summary: mostrar catalogo completo.
-        operationId: idEliminar
-        description: | 
-          id del producto a modificar.
-        produces:
-        - application/json
-        responses:
-          201:
-            description: producto eliminado.
-          400:
-            description: Eliminación invalida, Objeto invalido.   
-      
-      
-      
+        - solicitud por nombre de producto a modificar
+        summary: 
+        operationId: idmod
+        description: solicitud de datos POR NOMBRE del producto ingresado.
+          requestBodies:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    nombre:
+                      type: string #cambiar por id del producto
+              
+  
+                responses:
+                '404': El nombre ingresado no existe.
+                '200': Ok. 
+                 description: Se envia el producto con los campos para ser modificados
+                  requestBody:
+                  required: true
+                   content:application/x-www-form-urlencoded: # es la forma que usa swagger para devolver forms
+                    schema:
+                    type: object
+                    properties:
+                      nombre:          
+                        type: string
+                      descripcion:    
+                        type: string
+                       foto:
+                         content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                        precio:
+                          type: double
+                        tipoProducto: 
+                           type: string # es string o es object? debido a que es otra entidad ? 
+                
+                        required:
+                          - name
+                          - descripcion
+                          - foto
+                          - precio
+                          - tipoProducto
+                
+                
+      put:
+      tags:
+        - Modificacion del producto
+        summary: Modifica el producto
+        operationId: ModProd
+        description: Modificacion producto
+        requestBody:
+          required: true
+          content:application/x-www-form-urlencoded: # es la forma que usa swagger para devolver forms
+            schema:
+              type: object
+              properties:
+                nombre:          
+                  type: string
+                descripcion:    
+                  type: string
+                foto:
+                  content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                precio:
+                  type: double
+                tipoProducto: 
+                  type: string # es string o es object? debido a que es otra entidad ? 
+                
+              required:
+                - name
+                - descripcion
+                - foto
+                - precio
+                - tipoProducto
+
+                
+              responses:
+                
+                '201': producto Modificado.
+                '400': El nombre de producto ingresado ya se ecuentra utilizado.
+
+/Ingreso/abm/modificar/eliminarpornombre:
+
+      delete: # o post?
+        tags:
+        - Eliminar producto por nombre.
+        summary: 
+        operationId: idmod
+        description: eliminacion de producto por nombre
+          requestBodies:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    nombre:
+                      type: string #cambiar por id del producto
+              
+  
+                responses:
+                '200': El producto fue eliminado
+                '200': Ok. 
+                
  ## ----------------------------------------------------------------
  # A PARTIR DE ACA !poner las validaciones en body con el "requestBody" antes utilizado
       
@@ -201,16 +300,6 @@ paths: {
   
   
   
-  
-  
-  
-  
-}
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /GuidoB22/TiendaUP/1.0
-schemes:
- - https
   
   
   
