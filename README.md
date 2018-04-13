@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: "1.4"
+  version: "1.6"
   title: 'Tienda Online'
   description: 'Tienda Tp Arquitectura WEB'
 paths: {
@@ -225,78 +225,114 @@ paths: {
       
 
       /productos:
-      get:
-        tags:
-        - Productos
-        summary: mostrar catalogo completo.
-        operationId: searchInventory
-        description: Muestra la totalidad de los productos disponibles en el catalogo.
-        produces:
-        - application/json
-        responses:
-          200:
-            description: Obtener la lista completa de productos.
+   get:
+        summary: Solicitud de productos a modificar
+    
+    responses:
+      '200': Ok. 
+      description: Se envia el listado completo de productos
+      requestBodies:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
             schema:
-              type: array
-              items:
-                $ref: '#/' # es a donde estan los archivos en ruta por ej si se guardan los produictos en prodcutos/prod.txt
+              type: object
+              properties:
+                nombre:          
+                  type: string
+                descripcion:    
+                  type: string
+                foto:
+                  content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                precio:
+                  type: double
+                tipoProducto: 
+                  type: string #es string o object debido a que es otra entidad?
           400:
             description: Error en en la respuesta.
 
         
 
     /productos/:nombre:        
-      get:
+     get:
         tags:
-        - Buscar producto por nombre
-        summary: mostrar el producto del "nombre".
-        operationId: setNombre --------------------------------------------------------------
-        description: | 
-          id del producto.
-        produces:
-        - application/json
-              parameters:
-        - name: nombre
-          in: query
-          description: El nombre del producto.
-          required: true
-          type: string
-        responses:
-          200:
-            description: Obtener el producto.
-            schema:
-              type: array
-              items:
-                $ref: '#/'
-          400:
-            description: Error en en la respuesta.
+        - solicitud por nombre de producto a modificar
+        summary: 
+        operationId: idmod
+        description: solicitud de datos POR NOMBRE del producto ingresado.
+          requestBodies:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    nombre:
+                      type: string #cambiar por id del producto
+              
+  
+                responses:
+                '404': El nombre ingresado no existe.
+                '200': Ok. 
+                 description: Se envia el listado completo de productos
+                 requestBodies:
+                  required: true
+                  content:
+                   application/x-www-form-urlencoded:
+                     schema:
+                     type: object
+                     properties:
+                      nombre:          
+                      type: string
+                      descripcion:    
+                      type: string
+                      foto:
+                        content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                      precio:
+                       type: double
+                      tipoProducto: 
+                        type: string #es string o object debido a que es otra entidad?
 
     /productos/:tipoproducto:        
       get:
         tags:
-        - Buscar producto por tipo
-        summary: mostrar productos por tipo.
-        operationId: setNombre --------------------------------------------------------------
-        description: | 
-          id del producto.
-        produces:
-        - application/json
-              parameters:
-        - name: tipoproducto
-          in: query
-          description: el tipo de producto.
-          required: true
-          type: string
-        responses:
-          200:
-            description: Obtener los productos por tipo.
-            schema:
-              type: array
-              items:
-                $ref: '#/'
-          400:
-            description: Error en en la respuesta.
+        - solicitud pe productos por TIPO DE PRODUCTO
+        summary: 
+        operationId: idconsulta
+        description: solicitud de PRODUCTOS POR TIPO DE PRODUCTO
+          requestBodies:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    tipoproducto:
+                      type: string #es string o object debido a que es otra entidad?
+              
   
+                responses:
+                  '200': Ok. 
+                    description: Se envia el listado completo de productos
+                    requestBodies:
+                    required: true
+                    content:
+                    application/x-www-form-urlencoded:
+                    schema:
+                      type: object
+                    properties:
+                    nombre:          
+                      type: string
+                    descripcion:    
+                      type: string
+                    foto:
+                      content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                    precio:
+                      type: double
+                    tipoProducto: 
+                      type: string #es string o object debido a que es otra entidad?
+                  '404': El tipo de producto ingresado no fue encontrado
+                    description: Error en en la respuesta.
   
   
   
