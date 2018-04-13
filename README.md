@@ -1,34 +1,16 @@
 swagger: '2.0'
 info:
-  version: "1.6"
+  version: "1.6real"
   title: 'Tienda Online'
   description: 'Tienda Tp Arquitectura WEB'
 paths: {
-  /Ingreso:
-  #tengo que tener un get antes, que me traigar el form que solicite usuario y contraseña? o se le pasa un post con el usuario y contraseña y que ingrese?#
-    get:
-      summary: Solicitud de campos para ingreso a usuario administrador.
-    
-    responses:
-      '200': Ok. 
-      description: Se envian los campos usuario y pass para completar.
-      requestBodies:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                usuario:
-                  type: string
-                contraseña:
-    
+  /Ingreso: #todos mis endpoints que tengan la accion, el path , parametros de entrada, el body (si llego a tener y para esto el response), codigo de error / cambiar LOS MODIFICAR Y BORRAR! SACAR LAS ACCIONES Y PONER SOLO RECURSOS!
+
     post:
       summary: Envío de usuario y contraseña a validar.
       requestBody:
-        required: true
         content:
-          application/x-www-form-urlencoded: # es la forma que usa swagger para devolver forms
+          application/json: # es la forma que usa swagger para devolver forms
             schema:
               type: object
               properties:
