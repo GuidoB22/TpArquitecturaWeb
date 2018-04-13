@@ -4,24 +4,21 @@ info:
   title: 'Tienda Online'
   description: 'Tienda Tp Arquitectura WEB'
 paths: {
-  /Ingreso: #todos mis endpoints que tengan la accion, el path , parametros de entrada, el body (si llego a tener y para esto el response), codigo de error / cambiar LOS MODIFICAR Y BORRAR! SACAR LAS ACCIONES Y PONER SOLO RECURSOS!
+  /login: #todos mis endpoints que tengan la accion, el path , parametros de entrada, el body (si llego a tener y para esto el response), codigo de error / cambiar LOS MODIFICAR Y BORRAR! SACAR LAS ACCIONES Y PONER SOLO RECURSOS!
 
     post:
       summary: Envío de usuario y contraseña a validar.
-      requestBody:
+      Body:
         content:
           application/json: # es la forma que usa swagger para devolver forms
-            schema:
-              type: object
-              properties:
+            {
+              
                 usuario:          # <--- campo form para Nombre
                   type: string
                 pass:    # <--- campo form para Pass
-                  type: integer
-              required:
-                - name
-                - pass
-    
+                  type: string
+              
+             }
     responses:
       '200':
           description: Se ingreso al sistema con usuario Administrador.
@@ -31,16 +28,15 @@ paths: {
           
           
           
-  /Ingreso/abm/crear: 
+  /productos: 
     post:
         tags:
         - Crear Productos
         summary: Crea un nuevo producto para mostrar en el catalogo.
-        operationId: crearProducto
-        description: Crea un producto.
-        requestBody:
+  
+        Body:{
           required: true
-          content:application/x-www-form-urlencoded: # es la forma que usa swagger para devolver forms
+          content:application/json: # es la forma que usa swagger para devolver forms
             schema:
               type: object
               properties:
@@ -54,13 +50,8 @@ paths: {
                   type: double
                 tipoProducto: 
                   type: string # es string o es object? debido a que es otra entidad ? 
-                
-              required:
-                - name
-                - descripcion
-                - foto
-                - precio
-                - tipoProducto
+                }
+              # hasta aca modifique en la clase!
 
 
     responses:
