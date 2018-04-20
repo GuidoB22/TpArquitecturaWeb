@@ -42,7 +42,7 @@ paths: {
  /usuario/catalogos
 
 	post usuario/catalogos
-	Param:
+	Param: no
         summary: Elegir el catalogo a modificar
         Body
         content:
@@ -60,7 +60,7 @@ paths: {
 /usuario/catalogos/nuevocatalogo
 	
 	post usuario/catalogos
-	Param:
+	Param: no
         summary: Crear un nuevo catalogo.
         Body
         content:
@@ -80,9 +80,9 @@ paths: {
 
 
 
-/usuario/catalogos/catalogo/producto
+/usuario/catalogos/catalogo/producto                                      -------listar productos -> cambiar producto por productos? por logica q traera todos los productos?
 
-#listar productos
+
 
  get:
         summary: Solicitud de productos a modificar
@@ -90,11 +90,10 @@ paths: {
     responses:
       '200': Ok. 
       description: Se envia el listado completo de productos
-      requestBodies:
+      Body:
         required: true
-        content:
-          application/json:
-            
+        content:application/json:
+            {
               type: object
               properties:
                 nombre:          
@@ -107,42 +106,28 @@ paths: {
                   type: double
                 tipoProducto: 
                   type: string #es string o object debido a que es otra entidad?
+                Catadogo_id:
+                	type: integer
+            }
           400:
             description: Error en en la respuesta.
+        
+
+/usuario/catalogos/productos/nombre
 	
-	post usuario/catalogos/catalogo/producto
-	Param:
-        summary: ingreso de nombre de producto a modificar
-        Body
-        content:
-              application/json:
+	     post usuario/catalogos/catalogo/producto
+		 Param: no
+         summary: ingreso de nombre de producto a modificar ##----------> cambiar por id?
+         Body:
+         content:application/json:
               {
 					nombre:
 					 type: integer
               }
-    responses:
-    	'200':
-    	description: 
-          <link rel="/usuario/catalogos/catalogo/producto/nombre" uri="/$usuario/catalogos/catalogo/$nombre"/> ##.-----------------??
-
-
-/usuario/catalogos/productos/nombre
-	
-	      post:
-          description: solicitud de datos POR NOMBRE del producto ingresado.
-          	Body:
-            required: true
-            content:
-              application/json:
-                {
-                    nombre:
-                      type: string #cambiar por id del producto
-                }
               
     responses:
         '404': El nombre ingresado no existe.
         
-
         '200': Ok. 
                  description: Se envia el producto con los campos para ser modificados
                   Body:
@@ -159,10 +144,12 @@ paths: {
                           type: double
                         tipoProducto: 
                            type: string # es string o es object? debido a que es otra entidad ? 
+                        Catadogo_id:
+                			type: integer
                 
                    	}
                 
-      			put:
+      		put:
         		description: Modificacion producto
         		Body:
           		required: true
@@ -178,21 +165,21 @@ paths: {
                   type: double
                 tipoProducto: 
                   type: string # es string o es object? debido a que es otra entidad ? 
+                Catadogo_id:
+                	type: integer
                 }
-
-
-
     responses:
                 
             '201': producto Modificado.
             '400': El nombre de producto ingresado ya se ecuentra utilizado.
-#-----------------------------------------------------hasta aca modifique!!!!!!!!! 19/4 G.B
 
-	
-    post
-    Param:
+
+/usuario/catalogos/productos/NuevoProducto
+
+    	post
+    	Param:
         tags:
-        - Crear Productos
+        - Crear Producto
         summary: Crea un nuevo producto para mostrar en el catalogo.
         Body:{
           required: true
@@ -210,10 +197,9 @@ paths: {
                   type: double
                 tipoProducto: 
                   type: string # es string o es object? debido a que es otra entidad ? 
+                Catadogo_id:
+                	type: integer
                 }
-              # hasta aca modifique en la clase!
-
-
     responses:
           201:
             description: producto Creado.
@@ -221,7 +207,11 @@ paths: {
             description: ingreso Invalido, Objeto invalido.
           409:
             description: el Producto ya existe.
-# cambiar por get para traer productos y luego la sintaxis que se valla a hacer modificar =PUT(update)  eliminar =delete
+
+ 
+#-----------------------------------------------------hasta aca modifique!!!!!!!!! 20/4 G.B
+#--cambiar por get para traer productos y luego la sintaxis que se valla a hacer modificar =PUT(update)  eliminar =delete
+
 
 /Ingreso/abm/modificar/modpornombre:
 
