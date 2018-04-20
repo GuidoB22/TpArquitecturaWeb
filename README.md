@@ -209,28 +209,19 @@ paths: {
             description: el Producto ya existe.
 
  
-#-----------------------------------------------------hasta aca modifique!!!!!!!!! 20/4 G.B
+
 #--cambiar por get para traer productos y luego la sintaxis que se valla a hacer modificar =PUT(update)  eliminar =delete
 
 
-/Ingreso/abm/modificar/modpornombre:
 
+/usuario/catalogos/producto
 
-/Ingreso/abm/modificar/eliminarpornombre:
-
-      delete: # o post?
+      delete: 
         tags:
-        - Eliminar producto por nombre.
-        summary: 
-        operationId: idmod
-        description: eliminacion de producto por nombre
-          requestBodies:
+        - Eliminar producto por nombre.( que supuestamente va a ser unico y no vamos a usar id de producto¿?)
+         Body:
             required: true
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
+            content:application/json:
                     nombre:
                       type: string #cambiar por id del producto
               
@@ -239,7 +230,7 @@ paths: {
                 '200': El producto fue eliminado
                 '200': Ok. 
                 
- ## ----------------------------------------------------------------
+#-----------------------------------------------------hasta aca modifique!!!!!!!!! 20/4 G.B
       
 
  /productos
