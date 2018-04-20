@@ -9,7 +9,7 @@ Alcance: Se van a poder de cargar en el back-end prendas en un catálogo con nom
    title: 'Catalogo Para Ventas'
    description: 'Aplicación para generar catálogos WEB para venta de indumentaria.'
 
-
+#poner los gets con query. (query.string, etc, AVERIGUAR y cambiarlos)
 paths: {
 
 
