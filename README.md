@@ -85,7 +85,7 @@ paths: {
 
 
  get:
-        summary: Solicitud de productos a modificar
+        summary: Se envia el listado completo de productos correspondientes al catalogo en el que me encuentro
     
     responses:
       '200': Ok. 
@@ -216,7 +216,7 @@ paths: {
 
 /usuario/catalogos/producto
 
-      delete: 
+      delete /usuario/catalogos/producto
         tags:
         - Eliminar producto por nombre.( que supuestamente va a ser unico y no vamos a usar id de producto¿?)
          Body:
@@ -230,103 +230,130 @@ paths: {
                 '200': El producto fue eliminado
                 '200': Ok. 
                 
-#-----------------------------------------------------hasta aca modifique!!!!!!!!! 20/4 G.B
       
 
- /productos
+/catalogos
 
+	GET usuario/catalogos
+	Param: no
+        summary: Elegir el catalogo a modificar
+        Body
+        content:
+              application/json:
+              {
+					Id:
+					 type: integer
+              }
+    responses:
+    	'200':
+    	description: Se ingreso al sistema con usuario Administrador.
+          <link rel="catalogos/catalogo" uri="catalogos/$catalogo"/>
+    		
+/catalogos/catalogo
+
+		GET /catalogos/catalogo
+        summary: Se envia el listado completo de productos correspondientes al catalogo en el que me encuentro
+    	responses:
+     	 '200': Ok. 
+     	 description: Se envia el listado completo de productos
+      Body:
+        required: true
+        content:application/json:
+            {
+              type: object
+              properties:
+                nombre:          
+                  type: string
+                descripcion:    
+                  type: string
+                foto:
+                  content: image/*: 
+                precio:
+                  type: double
+                tipoProducto: 
+                  type: string #es string o object debido a que es otra entidad?
+                Catadogo_id:
+                	type: integer
+            }
+          400:
+            description: Error en en la respuesta.
         
-
-    /productos/:nombre:        
-     get:
-        tags:
-        - solicitud por nombre de producto a modificar
-        summary: 
-        operationId: idmod
-        description: solicitud de datos POR NOMBRE del producto ingresado.
-          requestBodies:
-            required: true
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    nombre:
-                      type: string #cambiar por id del producto
+/catalogos/producto/nombre
+	
+	     GET usuario/catalogos/catalogo/producto
+		 Param: no
+         summary: ingreso de nombre de producto a visualizar ##----------> cambiar por id?
+         Body:
+         content:application/json:
+              {
+					nombre:
+					 type: integer
+              }
               
-  
-                responses:
-                '404': El nombre ingresado no existe.
-                '200': Ok. 
-                 description: Se envia el listado completo de productos
-                 requestBodies:
+    responses:
+        '404': El producto ingresado no existe.
+        
+        '200': Ok. 
+                 description: Se envian los datos del producto solicitado
+                  Body:
                   required: true
-                  content:
-                   application/x-www-form-urlencoded:
-                     schema:
-                     type: object
-                     properties:
+                   content:application/json: 
+                   {
                       nombre:          
-                      type: string
+                        type: string
                       descripcion:    
-                      type: string
-                      foto:
-                        content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
-                      precio:
-                       type: double
-                      tipoProducto: 
-                        type: string #es string o object debido a que es otra entidad?
+                        type: string
+                       foto:
+                         content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                        precio:
+                          type: double
+                        tipoProducto: 
+                           type: string # es string o es object? debido a que es otra entidad ? 
+                        Catadogo_id:
+                			type: integer
+                
+                   	}
 
-    /productos/:tipoproducto:        
-      get:
-        tags:
-        - solicitud pe productos por TIPO DE PRODUCTO
-        summary: 
-        operationId: idconsulta
-        description: solicitud de PRODUCTOS POR TIPO DE PRODUCTO
-          requestBodies:
-            required: true
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    tipoproducto:
-                      type: string #es string o object debido a que es otra entidad?
+
+catalogos/producto/tipoproducto:
+		
+		GET usuario/catalogos/catalogo/tipoproducto
+		 Param: no
+         summary: ingreso el id de los tipo de productos a visualizar 
+         Body:
+         content:application/json:
+              {
+					nombre:
+					 type: integer
+              }
               
+    responses:
+        '404': El tipo de producto ingresado no existe.
+        
+        '200': Ok. 
+                 description: Se envian los datos de los productos del tipo de producto solicitado
+                  Body:
+                  required: true
+                   content:application/json: 
+                   {
+                      nombre:          
+                        type: string
+                      descripcion:    
+                        type: string
+                       foto:
+                         content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
+                        precio:
+                          type: double
+                        tipoProducto: 
+                           type: string # es string o es object? debido a que es otra entidad ? 
+                        Catadogo_id:
+                			type: integer
+                
+                   	}
+
   
-                responses:
-                  '200': Ok. 
-                    description: Se envia el listado completo de productos
-                    requestBodies:
-                    required: true
-                    content:
-                    application/x-www-form-urlencoded:
-                    schema:
-                      type: object
-                    properties:
-                    nombre:          
-                      type: string
-                    descripcion:    
-                      type: string
-                    foto:
-                      content: image/*: ##chequear si es type como los otros o content como dice carga de archivos en swagger tut
-                    precio:
-                      type: double
-                    tipoProducto: 
-                      type: string #es string o object debido a que es otra entidad?
-                  '404': El tipo de producto ingresado no fue encontrado
-                    description: Error en en la respuesta.
-  
-  
-  
-  
+#-----------------------------------------------------hasta aca modifique!!!!!!!!! 20/4 G.B
   
   
   
 }
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /GuidoB22/TiendaUP/1.0
-schemes:
- - https
