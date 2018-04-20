@@ -1,7 +1,6 @@
  **Trabajo practico Arquitectura Web**
  
 * Nombre de grupo:PalermoSoft
-* Integrantes: Guido Besozzi
 * Integrantes: Guido Besozzi, Lopolito Gonzalo.
 * Descripción: Vamos a modelar un sistema de venta de prendas por catalogo
  
