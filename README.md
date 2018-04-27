@@ -210,7 +210,6 @@ paths: {
 
  
 
-#--cambiar por get para traer productos y luego la sintaxis que se valla a hacer modificar =PUT(update)  eliminar =delete
 
 
 
@@ -353,7 +352,9 @@ catalogos/producto/tipoproducto:
 
   
 #-----------------------------------------------------hasta aca modifique!!!!!!!!! 20/4 G.B
-  
+
+#--cambiar por get para traer productos y luego la sintaxis que se valla a hacer modificar =PUT(update)  eliminar =delete
+
   
   
 }
