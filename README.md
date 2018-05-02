@@ -10,7 +10,7 @@ Alcance: Se van a poder de cargar en el back-end prendas en un catálogo con nom
    description: 'Aplicación para generar catálogos WEB para venta de indumentaria.'
 
 #poner los gets con query. (query.string, etc, AVERIGUAR y cambiarlos)
-# agregar formato dinamigo /productos/:id o /productos/:nombre
+# agregar formato dinamico /productos/:id o /productos/:nombre
 paths: {
 
 
